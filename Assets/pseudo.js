@@ -8,6 +8,8 @@ const startButton = document.getElementById("start-btn");
 
 const bannerSection = document.getElementById("banner");
 
+const mainElement = document.getElementById("main");
+
 const onLoad = () => {
   // initialise local storage
   // check if highscores exists in LS
@@ -60,6 +62,38 @@ const renderTimerSection = () => {
 };
 
 const renderQuestionSection = () => {
+  const section = document.createElement("section");
+  section.setAttribute("class", "content-section question-container")
+
+  const h2 = document.createElement("h2");
+  h2.setAttribute("class", "content-section-title");
+  h2.textContent = "1. Commonly used data types DO NOT include:"
+
+  const ul = document.createElement("ul");
+  ul.setAttribute("class", "feedback-list");
+
+  const li1 = document.createElement("li");
+  li1.setAttribute("class", "list-item");
+  li1.textContent = "Strings";
+
+  const li2 = document.createElement("li");
+  li2.setAttribute("class", "list-item");
+  li2.textContent = "Booleans";
+
+  const li3 = document.createElement("li");
+  li3.setAttribute("class", "list-item");
+  li3.textContent = "Alerts";
+
+  const li4 = document.createElement("li");
+  li4.setAttribute("class", "list-item");
+  li4.textContent = "Numbers";
+
+  ul.append(li1, li2, li3, li4);
+
+  section.append(h2, ul);
+
+  mainElement.append(section);
+
   // use HTML as guide and build in JS
   // append section to main
   // add click event listener on #question-section
