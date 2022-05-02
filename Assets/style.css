@@ -1,3 +1,9 @@
+:root {
+    --yellow:rgb(255, 238, 0);
+    --mustard: rgb(255, 170, 0);
+    --golden: gold;
+    
+}
 * {
     box-sizing: border-box;
 }
@@ -14,7 +20,55 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: "Source Sans Pro", sans-serif;
+    background-color: black;
 }
+
+/*Start of header styles */
+
+.header {
+    background-color: var(--mustard);
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.nav-link-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link-logo:hover {
+    box-shadow: 0 0 1rem 0.5rem var(--golden);
+    background-color: var(--golden);
+}
+
+.logo {
+    width: 6.4rem;
+    height: 6.4rem;
+    object-fit: contain;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    color: var(--yellow);
+    padding-bottom: 0.5rem;
+}
+
+.nav-link:hover {
+    border-bottom: 0.2rem solid var(--golden);
+    box-shadow: 0 0 1rem 0.5rem var(--golden);
+    background-color: var(--golden);
+}
+
+/*End of header styles*/
 
 .main {
     flex: 2;
