@@ -132,3 +132,14 @@ body {
     color: var(--yellow);
     letter-spacing: 0.4rem;
 }
+
+/*End of footer styles*/
+
+@media screen and (max-width:768px) {
+    .main {
+        margin: 0;
+    }
+    .content-section {
+        margin: 2rem 0.75rem;
+    }
+}
