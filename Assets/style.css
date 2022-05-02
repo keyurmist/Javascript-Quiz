@@ -73,3 +73,14 @@ body {
 .main {
     flex: 2;
 }
+
+/*Star of footer styles */
+
+.footer {
+    background-color: var(--mustard);
+    font-size: 1.4rem;
+    padding: 2rem 0;
+    text-align:center;
+    color: var(--yellow);
+    letter-spacing: 0.4rem;
+}
