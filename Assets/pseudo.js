@@ -6,7 +6,7 @@ let quizComplete = false;
 
 const startButton = document.getElementById("start-btn");
 
-const bannerButton = document.getElementById("banner");
+const bannerSection = document.getElementById("banner");
 
 const onLoad = () => {
   // initialise local storage
@@ -14,7 +14,9 @@ const onLoad = () => {
   // if false then set highscores to empty array in LS
 };
 
-const removeStartSection = () => {};
+const removeStartSection = () => {
+  bannerSection.remove();
+};
 
 const startTimer = () => {
   // declare function to execute every 1 sec
