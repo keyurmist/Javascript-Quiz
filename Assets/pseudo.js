@@ -1,7 +1,6 @@
 // global declarations
-const questions = [];
 let questionIndex = 0;
-let timerValue = 10 * questions.length;
+let timerValue = 10 * 5;
 let quizComplete = false;
 
 const startButton = document.getElementById("start-btn");
@@ -9,6 +8,35 @@ const startButton = document.getElementById("start-btn");
 const bannerSection = document.getElementById("banner");
 
 const mainElement = document.getElementById("main");
+
+var questions = [
+  {
+      text: "Commonly used data types DO NOT include:",
+      choices: ["strings", "booleans", "alerts", "numbers"],
+      answer: "alerts"
+  },
+  {
+      text: "The condition in an if / else statement is enclosed within ____.",
+      choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+      answer: "parentheses"
+  },
+  {
+      text: "Arrays in Javascript can be used to store ____.",
+      choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+      answer: "all of the above"
+  },
+  {
+      text: "String values must be enclosed within ____ when being assigned to variables.",
+      choices: ["commas", "curly brackets", "quotes", "parenthesis"],
+      answer: "quotes"
+  },
+  {
+      text: "A very useful tool for used during development and debugging for printing content to the debugger is:",
+      choices: ["Javascript", "terminal / bash", "for loops", "console log"],
+      answer: "console log"
+  },
+
+];
 
 const onLoad = () => {
   // initialise local storage
@@ -62,31 +90,38 @@ const renderTimerSection = () => {
 };
 
 const renderQuestionSection = () => {
+
+  const currentQuestion = questions[0];
+  
   const section = document.createElement("section");
   section.setAttribute("class", "content-section question-container")
 
   const h2 = document.createElement("h2");
   h2.setAttribute("class", "content-section-title");
-  h2.textContent = "1. Commonly used data types DO NOT include:"
+  h2.textContent = currentQuestion.text;
 
   const ul = document.createElement("ul");
   ul.setAttribute("class", "feedback-list");
 
   const li1 = document.createElement("li");
   li1.setAttribute("class", "list-item");
-  li1.textContent = "Strings";
+  li1.setAttribute("data-value", currentQuestion.choices[0])
+  li1.textContent = currentQuestion.choices[0];
 
   const li2 = document.createElement("li");
   li2.setAttribute("class", "list-item");
-  li2.textContent = "Booleans";
+  li2.setAttribute("data-value", currentQuestion.choices[1])
+  li2.textContent = currentQuestion.choices[1];
 
   const li3 = document.createElement("li");
   li3.setAttribute("class", "list-item");
-  li3.textContent = "Alerts";
+  li3.setAttribute("data-value", currentQuestion.choices[2])
+  li3.textContent = currentQuestion.choices[2];
 
   const li4 = document.createElement("li");
   li4.setAttribute("class", "list-item");
-  li4.textContent = "Numbers";
+  li4.setAttribute("data-value", currentQuestion.choices[3])
+  li4.textContent = currentQuestion.choices[3];
 
   ul.append(li1, li2, li3, li4);
 
