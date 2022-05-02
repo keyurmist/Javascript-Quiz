@@ -48,6 +48,10 @@ const removeStartSection = () => {
   bannerSection.remove();
 };
 
+const removeQuestionSection = () => {
+  document.getElementById("question-container").remove();
+};
+
 const startTimer = () => {
   // declare function to execute every 1 sec
   const countdown = () => {
@@ -89,12 +93,49 @@ const renderTimerSection = () => {
   // append section to main
 };
 
+const handleOptionClick = (event) => {
+
+const currentTarget = event.currentTarget;
+
+const target = event.target;
+  if(target.tagName === "LI") {
+    const value = target.getAttribute("data-value");
+
+    const question = questions[questionIndex].text;
+
+    const answer = {
+      question: question,
+      value: value,
+    };
+
+    removeQuestionSection();
+
+    if (questionIndex < questions.length - 1) {
+      questionIndex += 1;
+      renderQuestionSection();
+    } else {
+      renderResults();
+
+      renderForm();
+    }
+  }
+};
+
+const renderResults = () => {
+
+};
+
+const renderForm = () => {
+
+};
+
 const renderQuestionSection = () => {
 
-  const currentQuestion = questions[0];
+  const currentQuestion = questions[questionIndex];
   
   const section = document.createElement("section");
-  section.setAttribute("class", "content-section question-container")
+  section.setAttribute("class", "content-section question-container");
+  section.setAttribute("id", "question-container");
 
   const h2 = document.createElement("h2");
   h2.setAttribute("class", "content-section-title");
@@ -129,6 +170,8 @@ const renderQuestionSection = () => {
 
   mainElement.append(section);
 
+  section.addEventListener("click", handleOptionClick);
+
   // use HTML as guide and build in JS
   // append section to main
   // add click event listener on #question-section
@@ -144,11 +187,11 @@ const renderAlert = (message, status) => {
   // append div to #question-section
 };
 
-const renderForm = () => {
+
   // use HTML as guide and build in JS
   // append section to main
   // add submit event handler to form
-};
+
 
 const renderQuizCompleteSection = () => {
   // use HTML as guide and build in JS
