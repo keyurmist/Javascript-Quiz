@@ -98,7 +98,7 @@ const renderQuestionSection = () => {
 
   const h2 = document.createElement("h2");
   h2.setAttribute("class", "content-section-title");
-  h2.textContent = currentQuestion.text;
+  h2.textContent = `${questionIndex + 1}. ${currentQuestion.text}`;
 
   const ul = document.createElement("ul");
   ul.setAttribute("class", "feedback-list");
