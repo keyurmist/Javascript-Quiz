@@ -4,6 +4,10 @@ let questionIndex = 0;
 let timerValue = 10 * questions.length;
 let quizComplete = false;
 
+const startButton = document.getElementById("start-btn");
+
+const bannerButton = document.getElementById("banner");
+
 const onLoad = () => {
   // initialise local storage
   // check if highscores exists in LS
@@ -87,6 +91,14 @@ const startQuiz = () => {
   // render question section
 };
 
+
+const handleStartButtonClick = () => {
+  renderQuestionSection();
+
+  removeStartSection();
+};
+
+startButton.addEventListener("click", handleStartButtonClick)
 // add event listeners
 // add document on load event listener
 // add start button click event listener
