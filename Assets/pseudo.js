@@ -38,6 +38,24 @@ var questions = [
 
 ];
 
+const initialiseLocalStorage = () => {
+  const feedbackResultsFromLS = JSON.parse(localStorage.getItem("feedbackResults"));
+
+  if(!feedbackResultsFromLS) {
+    localStorage.setItem("feedbackResults", JSON.stringify([]));
+  }
+};
+
+const storeAnswerInLS = (answer) => {
+  const feedbackResults = JSON.parse(localStorage.getItem("feedbackResults"));
+
+  feedbackResults.push(answer);
+
+  localStorage.setItem("feedbackResults", JSON.stringify(feedbackResults));
+};
+
+
+
 const onLoad = () => {
   // initialise local storage
   // check if highscores exists in LS
@@ -107,6 +125,8 @@ const target = event.target;
       question: question,
       value: value,
     };
+
+    storeAnswerInLS(answer);
 
     removeQuestionSection();
 
@@ -207,6 +227,8 @@ const startQuiz = () => {
 
 
 const handleStartButtonClick = () => {
+  initialiseLocalStorage();
+
   renderQuestionSection();
 
   removeStartSection();
