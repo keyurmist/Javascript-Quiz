@@ -13,14 +13,27 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav-container">
+        <nav class="nav-container" id=> 
             <a href="./index.html" class="nav-link-logo">
                 <img src="./Assets/JavaScript-logo.png" alt="JS logo" class="logo">
             </a>
             <a href="./highscore.html" class="nav-link">Highscores</a>
         </nav>
     </header>
-    <main class="main"></main>
+    <main class="main">
+        <div id="wrapper">
+            <!-- Div for timer -->
+            <div id="currentTime"></div>
+            <!-- Div for quiz content -->
+            <div id="questionsDiv">
+                <h1>Highscores</h1>
+                <ul id="highScore"></ul>
+                <!-- Buttons -->
+                <button id="goBack">Go Back</button>
+                <button id="clear" value="reset">Clear Highscore</button>
+            </div>
+        </div>
+    </main>
     <footer class="footer">
         <h4>&copy; Keyur Mistry 2022</h4>
     </footer>
