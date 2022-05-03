@@ -18,6 +18,8 @@ THEN I can save my initials and my score
 
 The bulk of the homework was done through javascript, as it allowed the quiz to start, make questions appear one after the other, allowed for a timer to be introduced, to collect user data and store it in the local storage and many more uses.
 
+Link to quiz: https://keyurmist.github.io/Javascript-Quiz/highscore.html
+
 
 Below is an image to show the start loading screen of the quiz. Here we can see that the start button is used to initiate the quiz and also a highscore link is shown on the top right.
 ![homescreen](./Assets/quiz%20home.png)
