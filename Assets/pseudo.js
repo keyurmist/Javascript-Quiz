@@ -1,6 +1,6 @@
 // global declarations
 let questionIndex = 0;
-let timerValue = 10 * 5;
+let secondsLeft = 10 * 5;
 let quizComplete = false;
 
 const startButton = document.getElementById("start-btn");
@@ -8,6 +8,14 @@ const startButton = document.getElementById("start-btn");
 const bannerSection = document.getElementById("banner");
 
 const mainElement = document.getElementById("main");
+
+var timer = document.querySelector("#start-btn");
+
+var currentTime = document.querySelector("#currentTime");
+
+var holdInterval = 0;
+
+var penalty = 5;
 
 var questions = [
   {
@@ -41,17 +49,23 @@ var questions = [
 const initialiseLocalStorage = () => {
   const feedbackResultsFromLS = JSON.parse(localStorage.getItem("feedbackResults"));
 
+  const allResultsFromLS = JSON.parse(localStorage.getItem("allResults"));
+
   if(!feedbackResultsFromLS) {
     localStorage.setItem("feedbackResults", JSON.stringify([]));
   }
+
+  if(!allResultsFromLS) {
+    localStorage.setItem("allResults", JSON.stringify([]));
+  }
 };
 
-const storeAnswerInLS = (answer) => {
-  const feedbackResults = JSON.parse(localStorage.getItem("feedbackResults"));
+const storeInLS = (key, value) => {
+  const arrayFromLS = JSON.parse(localStorage.getItem(key));
 
-  feedbackResults.push(answer);
+  arrayFromLS.push(value);
 
-  localStorage.setItem("feedbackResults", JSON.stringify(feedbackResults));
+  localStorage.setItem(key, JSON.stringify(arrayFromLS));
 };
 
 
@@ -70,6 +84,55 @@ const removeQuestionSection = () => {
   document.getElementById("question-container").remove();
 };
 
+timer.addEventListener("click", function () {
+  // We are checking zero because its originally set to zero
+  if (holdInterval === 0) {
+      holdInterval = setInterval(function () {
+          secondsLeft--;
+          currentTime.textContent = "Time: " + secondsLeft;
+
+          if (secondsLeft <= 0) {
+              clearInterval(holdInterval);
+              allDone();
+              currentTime.textContent = "Time's up!";
+          }
+      }, 1000);
+  }
+  render(questionIndex);
+});
+
+function compare(event) {
+  var element = event.target;
+
+  if (element.matches("li")) {
+
+      var createDiv = document.createElement("div");
+      createDiv.setAttribute("id", "createDiv");
+      // Correct condition 
+      if (element.textContent == questions[questionIndex].answer) {
+          score++;
+          createDiv.textContent = "Correct! The answer is:  " + questions[questionIndex].answer;
+          // Correct condition 
+      } else {
+          // Will deduct -5 seconds off secondsLeft for wrong answers
+          secondsLeft = secondsLeft - penalty;
+          createDiv.textContent = "Wrong! The correct answer is:  " + questions[questionIndex].answer;
+      }
+
+  }
+  // Question Index determines number question user is on
+  questionIndex++;
+
+  if (questionIndex >= questions.length) {
+      // All done will append last page with user stats
+      allDone();
+      createDiv.textContent = "End of quiz!" + " " + "You got  " + score + "/" + questions.length + " Correct!";
+  } else {
+      render(questionIndex);
+  }
+  questionsDiv.appendChild(createDiv);
+}
+
 const startTimer = () => {
   // declare function to execute every 1 sec
   const countdown = () => {
@@ -82,34 +145,6 @@ const startTimer = () => {
   // setInterval of 1000ms (1s)
 };
 
-const validateAnswer = () => {
-  // get answer clicked from user
-  // get the correct answer for question
-  // compare the 2 answers
-  // if incorrect subtract 5 seconds from timerValue
-  // if incorrect render error alert with message and status
-  // if correct render success alert with message and status
-  // set timeout for 500ms and then go to next question
-  // if question is last question set quizComplete to true and then render form
-  // if question is not last question then increment question index and render next question
-};
-
-const handleFormSubmit = () => {
-  // get value from input
-  // check if empty then render error alert with message and status
-  // if not empty then create the score object
-  // {
-  //   fullName: "Bob Smith",
-  //   score: 25
-  // }
-  // push score object to LS
-  // render quizCompleteSection
-};
-
-const renderTimerSection = () => {
-  // use HTML as guide and build in JS
-  // append section to main
-};
 
 const handleOptionClick = (event) => {
 
@@ -126,7 +161,7 @@ const target = event.target;
       value: value,
     };
 
-    storeAnswerInLS(answer);
+    storeInLS("feedbackResults", answer);
 
     removeQuestionSection();
 
@@ -141,12 +176,74 @@ const target = event.target;
   }
 };
 
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+
+  const fullName = document.getElementById("full-name").value;
+
+  if (fullName) {
+    const feedbackResults = JSON.parse(localStorage.getItem("feedbackResults"));
+
+    const result = {
+      fullName,
+      feedbackResults,
+    };
+
+    storeInLS("allResults", result);
+
+    localStorage.removeItem("feedbackResults");
+
+    document.getElementById("feedback-form").remove();
+  } else {
+    alert("Please enter your name");
+  }
+};
+
 const renderResults = () => {
 
 };
 
 const renderForm = () => {
+  const section  =document.createElement("section");
+  section.setAttribute("class", "feedback-form-section");
+  section.setAttribute("id", "feedback-form");
 
+  const h2 = document.createElement("h2");
+  h2.setAttribute("class", "title");
+  h2.textContent = "Submit your Highscore";
+
+  const form = document.createElement("form");
+
+  const inputDiv = document.createElement("div");
+  inputDiv.setAttribute("class", "form-control");
+
+  const input = document.createElement("input");
+  input.setAttribute("id", "full-name");
+  input.setAttribute("class", "form-input");
+  input.setAttribute("type", "text");
+  input.setAttribute("placeholder", "Enter full name");
+  
+
+  inputDiv.append(input);
+
+  const buttonDiv = document.createElement("div");
+  buttonDiv.setAttribute("class", "form-control");
+
+  const button = document.createElement("button");
+  button.setAttribute("type", "submit");
+  button.setAttribute("class", "btn");
+  button.textContent = "Submit";
+
+  buttonDiv.append(button);
+
+  form.append(inputDiv, buttonDiv);
+
+  section.append(h2, form);
+
+  mainElement.append(section);
+
+  // add event listener for form submission
+  form.addEventListener("submit", handleFormSubmit);
 };
 
 const renderQuestionSection = () => {
